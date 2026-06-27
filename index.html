@@ -22,6 +22,10 @@
         
         .container {
             text-align: center;
+            background: #0a0a0a;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
         
         h1 {
@@ -30,23 +34,71 @@
             font-size: 2em;
         }
         
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            color: #00ff00;
+            font-size: 1.2em;
+        }
+        
+        .stats div {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 2px solid #00ff00;
+        }
+        
         canvas {
             border: 4px solid #00ff00;
-            background: #000;
+            background: #1a1a1a;
             display: block;
-            margin: 0 auto;
+            margin: 0 auto 20px;
             max-width: 90vw;
-            max-height: 90vh;
+            max-height: 60vh;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #00cc00;
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.95);
         }
         
         .controls {
             color: #00ff00;
             margin-top: 20px;
-            font-size: 1.1em;
+            font-size: 0.95em;
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #00ff00;
         }
         
         .controls p {
-            margin: 10px 0;
+            margin: 8px 0;
         }
         
         @media (max-width: 600px) {
@@ -54,8 +106,21 @@
                 font-size: 1.5em;
             }
             
+            .container {
+                padding: 15px;
+            }
+            
+            .stats {
+                font-size: 1em;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+            
             .controls {
-                font-size: 0.9em;
+                font-size: 0.85em;
             }
         }
     </style>
@@ -63,10 +128,23 @@
 <body>
     <div class="container">
         <h1>🐍 SNAKE GAME 🐍</h1>
+        
+        <div class="stats">
+            <div>Score: <span id="score">0</span></div>
+            <div>High Score: <span id="highScore">0</span></div>
+        </div>
+        
         <canvas id="gameCanvas" width="400" height="400"></canvas>
+        
+        <div class="buttons">
+            <button id="startBtn">Start Game</button>
+            <button id="restartBtn">Restart</button>
+        </div>
+        
         <div class="controls">
             <p>⬆️ ⬅️ ➡️ ⬇️ - Mueve la serpiente</p>
-            <p>ESPACIO - Pausa/Reanuda</p>
+            <p>Click en "Start Game" para jugar</p>
+            <p>Toca los botones o usa el teclado</p>
         </div>
     </div>
     
