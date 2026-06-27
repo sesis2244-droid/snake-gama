@@ -182,6 +182,8 @@ function restartGame() {
 
 // Keyboard controls
 document.addEventListener('keydown', (e) => {
+    if (!gameRunning) return;
+    
     switch (e.key) {
         case 'ArrowUp':
             if (direction.y === 0) nextDirection = { x: 0, y: -1 };
@@ -201,6 +203,42 @@ document.addEventListener('keydown', (e) => {
             break;
     }
 });
+
+// Touch controls para móvil
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, false);
+
+canvas.addEventListener('touchend', (e) => {
+    if (!gameRunning) return;
+    
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+    
+    // Detectar dirección del swipe
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        // Movimiento horizontal
+        if (diffX > 0 && direction.x === 0) {
+            nextDirection = { x: 1, y: 0 }; // Derecha
+        } else if (diffX < 0 && direction.x === 0) {
+            nextDirection = { x: -1, y: 0 }; // Izquierda
+        }
+    } else {
+        // Movimiento vertical
+        if (diffY > 0 && direction.y === 0) {
+            nextDirection = { x: 0, y: 1 }; // Abajo
+        } else if (diffY < 0 && direction.y === 0) {
+            nextDirection = { x: 0, y: -1 }; // Arriba
+        }
+    }
+}, false);
 
 // Button events
 startBtn.addEventListener('click', () => {
