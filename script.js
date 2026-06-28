@@ -24,7 +24,7 @@ let nextDirection = { x: 1, y: 0 };
 let score = 0;
 let highScore = localStorage.getItem('snakeHighScore') || 0;
 let gameRunning = false;
-let gameLoop;
+let gameLoop = null;
 
 highScoreDisplay.textContent = highScore;
 
@@ -242,6 +242,7 @@ canvas.addEventListener('touchend', (e) => {
 
 // Button events
 startBtn.addEventListener('click', () => {
+    console.log('Start button clicked, gameRunning:', gameRunning);
     if (gameRunning) {
         pauseGame();
     } else {
@@ -249,7 +250,10 @@ startBtn.addEventListener('click', () => {
     }
 });
 
-restartBtn.addEventListener('click', restartGame);
+restartBtn.addEventListener('click', () => {
+    console.log('Restart button clicked');
+    restartGame();
+});
 
 // Initial draw
 draw();
